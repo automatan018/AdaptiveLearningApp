@@ -1,0 +1,150 @@
+/* ============ 2. QUESTION BANK: every question maps to a skill.
+   Format: [question, correct answer, distractor, distractor, distractor]. Options are shuffled when shown.
+   Distractors are built from common mistakes. 6 questions per skill; quizzes draw from them at random. ============ */
+const QB={
+ mult_div:[
+  ["3,406 × 47 = ?","160,082","159,082","37,466","160,182"],
+  ["25,872 ÷ 48 = ?","539","529","549","5,390"],
+  ["A school orders 36 boxes of 144 pencils. How many pencils is that?","5,184","5,084","4,896","1,440"],
+  ["9,375 ÷ 25 = ?","375","37.5","3,750","385"],
+  ["A theater has 28 rows of 36 seats. 850 tickets are sold. How many seats are empty?","158","168","148","1,008"],
+  ["What is the remainder when 1,000 is divided by 37?","1","3","10","27"]],
+ frac_basic:[
+  ["Which fraction is NOT equal to 2/3?","16/27","14/21","18/27","20/30"],
+  ["Write 84/126 in simplest form.","2/3","42/63","3/4","6/7"],
+  ["Which fraction is the greatest?","2/3","5/8","7/12","3/5"],
+  ["3/7 = ?/56","24","21","27","8"],
+  ["Which fraction is between 1/3 and 1/2?","5/12","3/10","7/12","1/4"],
+  ["Write 2 3/8 as an improper fraction.","19/8","23/8","16/8","6/8"]],
+ dec_ops:[
+  ["7.25 × 0.4 = ?","2.9","29","0.29","2.8"],
+  ["15.3 − 8.76 = ?","6.54","7.54","6.64","7.43"],
+  ["4.2 ÷ 0.06 = ?","70","7","0.7","700"],
+  ["0.35 × 2.4 = ?","0.84","8.4","0.084","0.74"],
+  ["Maya buys 3 notebooks at $2.85 each and a pen for $1.49. She pays with $20. How much change does she get?","$9.96","$10.04","$9.66","$10.96"],
+  ["18.9 ÷ 4.5 = ?","4.2","0.42","42","4.02"]],
+ exp_expr:[
+  ["18 − 2 × (3 + 1)² = ?","−14","256","2","10"],
+  ["2⁴ × 3² = ?","144","72","48","36"],
+  ["(12 + 8) ÷ 4 × 5 − 3² = ?","16","−8","34","4"],
+  ["5 + 3 × 2³ − 6 ÷ 2 = ?","26","29","11.5","61"],
+  ["4³ − 2⁵ = ?","32","2","16","−32"],
+  ["3 × [20 − (4 + 2)² ÷ 4] = ?","33","51","27","60"]],
+ int_ops:[
+  ["−12 − (−5) + 3 = ?","−4","−20","−10","4"],
+  ["(−3)³ = ?","−27","27","−9","9"],
+  ["−48 ÷ (−6) × (−2) = ?","−16","16","−4","4"],
+  ["It is −8°F at 6 a.m. By noon it rises 15°, then it falls 11° by midnight. What is the temperature at midnight?","−4°F","4°F","−12°F","−34°F"],
+  ["|−9| − |4 − 11| = ?","2","−16","16","−2"],
+  ["(−2)⁴ − (−2)³ = ?","24","8","−24","0"]],
+ frac_ops:[
+  ["3 1/2 − 1 5/6 = ?","1 2/3","2 2/3","1 1/3","2 1/3"],
+  ["2 2/3 × 1 1/2 = ?","4","2 1/3","3 1/3","2"],
+  ["4/5 ÷ 2/15 = ?","6","8/75","1/6","3"],
+  ["A recipe needs 3/4 cup of sugar per batch. How many batches can you make with 6 cups?","8","4 1/2","6 3/4","7"],
+  ["5/6 − 3/8 = ?","11/24","2/14","1/12","13/24"],
+  ["1 3/4 + 2 5/6 = ?","4 7/12","3 8/10","4 1/12","3 7/12"]],
+ ratio:[
+  ["Store A sells 12 oz for $3.60. Store B sells 20 oz for $5.40. Which is the better deal per ounce?","Store B, by 3¢ per ounce","Store A, by 3¢ per ounce","Store B, by 30¢ per ounce","They cost the same"],
+  ["The ratio of red to blue marbles is 3:5. There are 40 marbles. How many are red?","15","24","8","25"],
+  ["A printer prints 45 pages in 2.5 minutes. How many pages per minute is that?","18","112.5","22.5","20"],
+  ["Paint is mixed 2 parts blue to 7 parts white. How many liters of blue are in 36 liters of paint?","8","28","7","10"],
+  ["The ratio of boys to girls is 4:5. There are 45 girls. How many students are there in all?","81","36","101","72"],
+  ["A car uses 12 gallons to drive 348 miles. How many miles per gallon is that?","29","28","31","4,176"]],
+ eval_expr:[
+  ["If x = −3, what is 2x² − 5x + 1?","34","4","52","−2"],
+  ["If a = 4 and b = −2, what is (a − b)² ÷ 3?","12","4/3","20/3","4"],
+  ["Which expression is equal to 3(2x − 4) + 5x?","11x − 12","11x − 4","6x − 7","11x + 12"],
+  ["A phone plan costs $25 plus $0.10 per text. What is the cost for 340 texts?","$59","$34","$25.34","$340"],
+  ["If n = 5, what is 4n − (n + 7) ÷ 3?","16","8/3","4","13"],
+  ["Simplify 7y − 3(y − 2).","4y + 6","4y − 6","4y − 2","10y + 6"]],
+ stats:[
+  ["The mean of 5 test scores is 84. Four of the scores are 80, 90, 78, and 85. What is the fifth score?","87","84","83","90"],
+  ["What is the median of 12, 7, 19, 3, 15, 10?","11","10","12","19"],
+  ["What is the range of 14, −3, 8, 22, 0?","25","22","19","17"],
+  ["Data: 4, 6, 6, 7, 9, 10, 30. Which value best describes a typical number in this set?","The median, 7","The mean, about 10.3","The mode, 6","The range, 26"],
+  ["What is the mode of 3, 5, 5, 8, 8, 8, 9, 10?","8","5","7","10"],
+  ["The mean of 6 numbers is 15. If the number 30 is removed, what is the mean of the rest?","12","15","10","13"]],
+ area_perim:[
+  ["A rectangle has a perimeter of 46 cm and a length of 15 cm. What is its area?","120 cm²","690 cm²","240 cm²","61 cm²"],
+  ["A trapezoid has bases 8 m and 14 m and a height of 5 m. What is its area?","55 m²","110 m²","560 m²","27 m²"],
+  ["A 10 m × 8 m rectangle has a 4 m × 3 m corner cut out. What is the area of the shape left?","68 m²","80 m²","92 m²","36 m²"],
+  ["A square has an area of 81 m². What is its perimeter?","36 m","81 m","18 m","324 m"],
+  ["A triangle has an area of 42 cm² and a base of 12 cm. What is its height?","7 cm","3.5 cm","14 cm","504 cm"],
+  ["A parallelogram has a base of 9.5 cm and a height of 4 cm. What is its area?","38 cm²","27 cm²","19 cm²","13.5 cm²"]],
+ percent:[
+  ["An $80 shirt is 25% off, then 8% sales tax is added. What is the total?","$64.80","$66.40","$86.40","$65.00"],
+  ["18 is what percent of 72?","25%","400%","18%","54%"],
+  ["A price rises from $40 to $52. What is the percent increase?","30%","12%","23%","130%"],
+  ["35% of what number is 49?","140","17.15","84","71.4"],
+  ["After a 20% discount, a game costs $36. What was the original price?","$45","$43.20","$30","$56"],
+  ["In a class of 30, 40% walk to school, 1/3 ride the bus, and the rest are driven. How many are driven?","8","18","12","10"]],
+ prop:[
+  ["On a map, 2 cm = 15 km. Two towns are 9 cm apart on the map. How far apart are they really?","67.5 km","135 km","60 km","30 km"],
+  ["Solve: x/12 = 15/20","9","16","25","23"],
+  ["4.5 lb of apples cost $6.30. How much do 7 lb cost at the same rate?","$9.80","$10.50","$8.40","$8.80"],
+  ["y is proportional to x, and y = 14 when x = 4. What is y when x = 10?","35","20","28","40"],
+  ["Solve: (x + 2)/5 = 12/10","4","6","10","3.6"],
+  ["A recipe for 6 servings uses 2 1/4 cups of flour. How much flour is needed for 10 servings?","3 3/4 cups","4 1/4 cups","3 1/2 cups","6 1/4 cups"]],
+ rat_ops:[
+  ["−2/3 × 9/4 = ?","−3/2","3/2","−8/27","−11/7"],
+  ["−3.5 + 1.25 − (−0.75) = ?","−1.5","−3","1.5","−5.5"],
+  ["(−1/2)³ = ?","−1/8","1/8","−3/2","−1/6"],
+  ["−4.8 ÷ (−0.6) = ?","8","−8","0.8","80"],
+  ["−5/6 + 3/4 = ?","−1/12","1/12","−19/12","−1/5"],
+  ["A diver at −12.4 m rises 5.75 m, then goes down 3.2 m. Where is the diver now?","−9.85 m","−14.95 m","−6.65 m","−21.35 m"]],
+ one_step_eq:[
+  ["Solve: −7x = 56","−8","8","49","−49"],
+  ["Solve: x ÷ (−4) = 9","−36","36","−9/4","5"],
+  ["Solve: x − 3.8 = −6.1","−2.3","−9.9","2.3","9.9"],
+  ["Solve: (2/3)x = 18","27","12","36","54"],
+  ["After spending $14.75, Jamie has $32.60 left. How much did Jamie start with?","$47.35","$17.85","$46.35","$37.35"],
+  ["Solve: −15 = y + 22","−37","7","−7","37"]],
+ circle:[
+  ["A circle's circumference is 50.24 cm. What is its radius? (π ≈ 3.14)","8 cm","16 cm","4 cm","25.12 cm"],
+  ["What is the area of a circle with a diameter of 12 m? (π ≈ 3.14)","113.04 m²","37.68 m²","452.16 m²","75.36 m²"],
+  ["What is the area of a semicircle with a radius of 10 cm? (π ≈ 3.14)","157 cm²","314 cm²","31.4 cm²","78.5 cm²"],
+  ["A wheel has a radius of 14 in. How far does it roll in 10 full turns? (π ≈ 3.14)","879.2 in","439.6 in","6,154.4 in","87.92 in"],
+  ["A circle's area is 28.26 m². What is its radius? (π ≈ 3.14)","3 m","9 m","4.5 m","6 m"],
+  ["The largest possible circle is cut from a 10 cm × 10 cm square. How much area is left over? (π ≈ 3.14)","21.5 cm²","78.5 cm²","68.6 cm²","5.35 cm²"]],
+ two_step:[
+  ["Solve: 5x + 7 = −18","−5","5","−11/5","11/5"],
+  ["Solve: 4(2x − 3) = 3x + 13","5","3.2","−5","2"],
+  ["Solve: x/3 − 4 = 5","27","3","17","9"],
+  ["Solve: 3(x + 4) − 2x = 20","8","16","24","4"],
+  ["A gym charges $30 to sign up plus $15 per month. Sam has paid $165 in total. How many months has Sam been a member?","9","11","13","7"],
+  ["Solve: 0.5x − 2.5 = 1.5x + 4.5","−7","7","−3.5","3.5"]],
+ angles:[
+  ["A triangle's angles are x°, 2x°, and 3x°. What is the largest angle?","90°","30°","60°","120°"],
+  ["Two angles are complementary. One is 4 times the other. What is the smaller angle?","18°","36°","22.5°","72°"],
+  ["An isosceles triangle has a top (vertex) angle of 40°. What is each base angle?","70°","40°","140°","50°"],
+  ["Two vertical angles measure (2x + 10)° and (3x − 25)°. What is x?","35","39","7","15"],
+  ["A triangle's exterior angle is 115°. One of the two far (remote) interior angles is 48°. What is the other?","67°","65°","17°","163°"],
+  ["What is the supplement of the complement of 35°?","125°","145°","55°","35°"]],
+ prob:[
+  ["You roll two dice. What is the chance the sum is 7?","1/6","7/36","1/12","7/12"],
+  ["A bag has 4 red, 6 blue, and 2 green marbles. What is the chance of picking one that is NOT blue?","1/2","1/3","2/3","1/6"],
+  ["A spinner has 5 equal sections. You spin it twice. What is the chance it lands on the same section both times?","1/5","1/25","2/5","1/10"],
+  ["The chance of rain on any day is 0.35. About how many rainy days would you expect in 60 days?","21","35","25","39"],
+  ["You draw 2 cards without putting the first back, from 3 red and 2 black cards. What is the chance both are red?","3/10","9/25","3/5","1/2"],
+  ["You flip a coin 3 times. What is the chance of getting at least one head?","7/8","1/8","3/8","1/2"]],
+ slope:[
+  ["What is the slope of the line through (−2, 5) and (4, −7)?","−2","2","−1/2","−6"],
+  ["Which is the equation of a line with slope 3 that crosses the y-axis at −4?","y = 3x − 4","y = −4x + 3","y = 3x + 4","y = x − 4"],
+  ["Where does the line y = −(1/2)x + 6 cross the x-axis?","(12, 0)","(6, 0)","(0, 6)","(−12, 0)"],
+  ["A taxi costs $3 plus $2.50 per mile. What does the slope of this line mean?","$2.50 per mile","$3 per mile","$5.50 per mile","A $3 starting fee"],
+  ["Which line is the steepest?","y = −4x + 1","y = 3x − 2","y = (1/2)x + 5","y = 2x"],
+  ["A line passes through (1, 3) and (5, 11). What is its y-intercept?","1","3","2","−1"]],
+ pyth:[
+  ["A right triangle has legs of 9 and 12. How long is the hypotenuse?","15","21","13","225"],
+  ["A 13 ft ladder leans on a wall with its base 5 ft from the wall. How high up the wall does it reach?","12 ft","8 ft","18 ft","14 ft"],
+  ["Is a triangle with sides 7, 24, and 25 a right triangle?","Yes, because 7² + 24² = 25²","No, because 7 + 24 ≠ 25","Yes, because 7 + 24 > 25","No, because 25² > 24²"],
+  ["How far apart are the points (1, 2) and (7, 10)?","10","14","100","8"],
+  ["A rectangle is 8 cm by 15 cm. How long is its diagonal?","17 cm","23 cm","13 cm","289 cm"],
+  ["A right triangle has a hypotenuse of 10 and one leg of 6. What is its area?","24","30","48","60"]]
+};
+const GOALS=[
+ {id:"g6",name:"Get ready for 6th grade math",desc:"Fractions, decimals, ratios, expressions",skills:["mult_div","frac_basic","dec_ops","frac_ops","ratio","exp_expr","eval_expr","percent","stats","area_perim"]},
+ {id:"g7",name:"Master 7th grade math",desc:"Negatives, proportions, equations, geometry",skills:["int_ops","frac_ops","ratio","percent","prop","rat_ops","one_step_eq","area_perim","circle","angles","prob"]},
+ {id:"g8",name:"Get ready for 8th grade & algebra",desc:"Equations, slope, Pythagorean theorem",skills:["exp_expr","int_ops","prop","eval_expr","one_step_eq","two_step","slope","pyth","area_perim"]}
+];

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SkillMap – Find your math starting point</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#F2F9FE;--card:#fff;--tx:#1B3A52;--mu:#5F7C92;--bl:#4DA8E8;--bll:#DDEFFC;--gr:#2FBF84;--grl:#DFF6EC;--am:#F2B44D;--aml:#FFF1D6;--co:#EE8A63;--col:#FDE6DC;--tr:#DCE9F2;--un:#B8C7D3}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1C29;--card:#16293A;--tx:#E6F1F8;--mu:#9DB6C8;--bll:#1D3A52;--grl:#153A30;--aml:#4A3A18;--col:#4A2A1F;--tr:#2A4256;--un:#4C6479}}
+:root[data-theme="dark"]{--bg:#0E1C29;--card:#16293A;--tx:#E6F1F8;--mu:#9DB6C8;--bll:#1D3A52;--grl:#153A30;--aml:#4A3A18;--col:#4A2A1F;--tr:#2A4256;--un:#4C6479}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:500 16px/1.5 Nunito,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:20px 18px 60px}
+h1,h2,h3{margin:0;line-height:1.2}h1{font-size:clamp(30px,6vw,46px);font-weight:800}h2{font-size:22px;font-weight:800;margin:30px 0 12px}h3{font-size:17px;font-weight:700}
+p{margin:.4em 0}.mu{color:var(--mu)}
+.brand{font-weight:800;color:var(--bl);font-size:18px;display:flex;gap:8px;align-items:center;margin-bottom:26px}
+.logo{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--bl),var(--gr))}
+.btn{border:0;border-radius:14px;padding:13px 24px;font:800 16px Nunito,system-ui,sans-serif;background:var(--gr);color:#fff;cursor:pointer;box-shadow:0 3px 0 #23966a}
+.btn:disabled{opacity:.4;cursor:default}.btn.alt{background:var(--bll);color:var(--tx);box-shadow:0 3px 0 var(--tr)}
+.btn:focus-visible,.opt:focus-visible,.goal:focus-visible,.link:focus-visible{outline:3px solid var(--bl);outline-offset:2px}
+.link{background:none;border:0;color:var(--mu);font:600 14px Nunito,sans-serif;text-decoration:underline;cursor:pointer;padding:8px}
+.hero{padding:30px 0}.hero p{font-size:18px;max-width:520px;margin:14px 0 24px}
+.steps{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.steps span{background:var(--card);border-radius:99px;padding:6px 14px;font-size:14px;font-weight:700;border:2px solid var(--bll)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
+.card{background:var(--card);border-radius:18px;padding:18px;border:2px solid var(--bll)}
+.goal{text-align:left;cursor:pointer;font:inherit;color:inherit;border:2px solid var(--bll);background:var(--card);border-radius:18px;padding:18px}
+.goal:hover{border-color:var(--bl)}.goal b{display:block;font-size:19px;margin-bottom:4px}.goal small{color:var(--mu)}
+.bar{height:10px;border-radius:9px;background:var(--tr);overflow:hidden}.bar i{display:block;height:100%;border-radius:9px;background:var(--bl)}
+.chip{display:inline-block;background:var(--grl);color:var(--tx);border-radius:99px;padding:6px 14px;margin:0 8px 8px 0;font-weight:700;font-size:14px;border:2px solid var(--gr)}
+.q{font-size:clamp(20px,4vw,26px);font-weight:800;margin:14px 0 20px}
+.tag{display:inline-block;background:var(--bll);border-radius:99px;padding:4px 12px;font-size:13px;font-weight:700}
+.opt{display:block;width:100%;text-align:left;margin-bottom:10px;padding:14px 16px;border-radius:14px;border:2px solid var(--tr);background:var(--card);color:var(--tx);font:700 17px Nunito,sans-serif;cursor:pointer}
+.opt.on{border-color:var(--bl);background:var(--bll)}
+.spin{width:54px;height:54px;border-radius:50%;border:6px solid var(--bll);border-top-color:var(--gr);animation:s 1s linear infinite;margin:70px auto 20px}
+@keyframes s{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.spin{animation-duration:4s}}
+.rep{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.ring{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;flex:none}
+.ring div{width:100px;height:100px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:30px;font-weight:800}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:6px}
+.pill{font-size:12px;font-weight:800;border-radius:99px;padding:3px 10px;white-space:nowrap}
+.mastered{background:var(--grl)}.developing{background:var(--aml)}.gap{background:var(--col)}.unknown{background:var(--tr)}
+.step{display:flex;gap:14px;margin-bottom:12px}.num{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--bll)}
+.step.now .num{background:var(--gr);color:#fff}
+.map{overflow-x:auto;background:var(--card);border-radius:18px;border:2px solid var(--bll);padding:10px}
+.map text{font:700 12px Nunito,system-ui,sans-serif;fill:var(--tx)}.map text.b{font-weight:800}.map text.colh{fill:var(--mu);font-size:12px}
+.map .leaf{cursor:pointer}.map .leaf:hover rect,.map .leaf:focus rect{stroke:var(--bl);stroke-width:3}.map .leaf:focus{outline:none}
+.gbar{display:inline-block;width:120px;height:12px;border-radius:6px;background:linear-gradient(90deg,#EE8A63,#F2B44D,#2FBF84)}.leg{align-items:center}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;margin-top:10px}.leg i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:5px;vertical-align:-1px}
+.bar-top{height:8px;margin-bottom:6px}
+.unit{margin-bottom:26px}
+.rec-row{background:var(--bll);border-radius:20px;padding:16px}
+.card.rec{border-color:var(--gr);display:flex;flex-direction:column}.card.rec .btn{margin-top:auto}
+</style></head><body><main id="app"></main>
+<script>
+/* ============ 1. KNOWLEDGE GRAPH: skills + prerequisites ============ */
+const KG=(()=>{
+  const S={};
+  // id, short name, grade, prerequisites, what to learn, minutes
+  [["mult_div","Multiply & divide",5,[],"Multi-digit multiplication and long division.",25],
+   ["frac_basic","Equivalent fractions",5,["mult_div"],"Match and simplify fractions using common factors.",20],
+   ["dec_ops","Decimal math",6,["mult_div"],"Line up place values to add, subtract, multiply decimals.",25],
+   ["exp_expr","Order of operations",6,["mult_div"],"Exponents first, then multiply/divide, then add/subtract.",20],
+   ["int_ops","Negative numbers",7,["mult_div"],"Use a number line and sign rules to add, subtract, multiply.",30],
+   ["frac_ops","Fraction operations",6,["frac_basic"],"Common denominators for adding; multiply across; flip to divide.",30],
+   ["ratio","Ratios & rates",6,["mult_div","frac_basic"],"Compare quantities and find unit rates like miles per hour.",25],
+   ["eval_expr","Variable expressions",6,["exp_expr"],"Swap a letter for a number, then follow the order of operations.",20],
+   ["stats","Mean & median",6,["dec_ops"],"Find the average and the middle value of a data set.",20],
+   ["area_perim","Area & perimeter",6,["mult_div","dec_ops"],"Use formulas for rectangles and triangles.",25],
+   ["percent","Percents",6,["dec_ops","ratio"],"Turn a percent into a decimal, then multiply.",25],
+   ["prop","Proportions",7,["ratio"],"Set two equal ratios and solve for the missing value.",25],
+   ["rat_ops","Rational numbers",7,["int_ops","frac_ops","dec_ops"],"Combine sign rules with fraction and decimal skills.",30],
+   ["one_step_eq","Simple equations",7,["eval_expr","int_ops"],"Undo the operation on both sides to isolate x.",25],
+   ["circle","Circles",7,["area_perim","dec_ops"],"Circumference = 2πr, area = πr².",25],
+   ["two_step","Multi-step equations",8,["one_step_eq"],"Undo add/subtract first, then multiply/divide; distribute.",30],
+   ["angles","Angles & triangles",7,["one_step_eq"],"Triangles add to 180°, straight lines to 180°.",20],
+   ["prob","Probability",7,["frac_basic","percent"],"Favorable outcomes ÷ total outcomes.",25],
+   ["slope","Slope & lines",8,["prop","int_ops"],"Rise over run, and y = mx + b.",30],
+   ["pyth","Pythagorean theorem",8,["exp_expr","area_perim"],"a² + b² = c² for right triangles.",25]
+  ].forEach(([id,name,grade,pre,learn,min])=>S[id]={id,name,grade,pre,learn,min});
+  const depth=id=>S[id].depth??=S[id].pre.length?1+Math.max(...S[id].pre.map(depth)):0;
+  Object.keys(S).forEach(depth);
+  const ancestors=(id,seen=new Set())=>{S[id].pre.forEach(p=>{if(!seen.has(p)){seen.add(p);ancestors(p,seen)}});return seen};
+  const dependents=id=>Object.values(S).filter(s=>s.pre.includes(id)).map(s=>s.id);
+  return{S,depth,ancestors,dependents};
+})();
+
+/* ============ 1b. CURRICULUM TREE: broad units -> topics -> individual concepts (leaves are KG skill ids) ============ */
+const Tree=(()=>{
+  const ROOT={id:"math",name:"All math",children:[
+    {id:"u_num",name:"Numbers & Operations",children:[
+      {id:"t_whole",name:"Whole numbers & decimals",children:["mult_div","dec_ops","exp_expr"]},
+      {id:"t_frac",name:"Fractions",children:["frac_basic","frac_ops"]},
+      {id:"t_neg",name:"Negatives & rationals",children:["int_ops","rat_ops"]}]},
+    {id:"u_ratio",name:"Ratios & Proportions",children:[
+      {id:"t_rates",name:"Ratio reasoning",children:["ratio","prop"]},
+      {id:"t_pct",name:"Percent problems",children:["percent"]}]},
+    {id:"u_alg",name:"Expressions & Equations",children:[
+      {id:"t_expr",name:"Working with variables",children:["eval_expr"]},
+      {id:"t_eq",name:"Equations",children:["one_step_eq","two_step"]},
+      {id:"t_lin",name:"Linear relationships",children:["slope"]}]},
+    {id:"u_geo",name:"Geometry",children:[
+      {id:"t_area",name:"Area & circles",children:["area_perim","circle"]},
+      {id:"t_tri",name:"Triangles",children:["angles","pyth"]}]},
+    {id:"u_stat",name:"Statistics & Probability",children:[
+      {id:"t_data",name:"Data",children:["stats"]},
+      {id:"t_chance",name:"Chance",children:["prob"]}]}]};
+  // Score of a node = average of its children's scores (leaf = mastery estimate). Unchecked children are skipped.
+  const score=(n,est)=>{
+    if(typeof n==="string")return est[n]?{p:est[n].p,checked:1,total:1}:{p:null,checked:0,total:1};
+    const kids=n.children.map(c=>score(c,est)),known=kids.filter(k=>k.p!=null);
+    return{p:known.length?known.reduce((s,k)=>s+k.p,0)/known.length:null,
+      checked:kids.reduce((s,k)=>s+k.checked,0),total:kids.reduce((s,k)=>s+k.total,0)};
+  };
+  const leaves=n=>typeof n==="string"?[n]:n.children.flatMap(leaves);
+  return{ROOT,score,leaves};
+})();
+
+/* Continuous color scale: coral (weak) -> amber -> green (strong). Scores live roughly in 0.2–0.8, so stretch that range. */
+const grad=p=>{
+  if(p==null)return"var(--un)";
+  const t=Math.max(0,Math.min(1,(p-.2)/.6))*2,i=Math.min(1,Math.floor(t)),f=t-i;
+  const S=[[238,138,99],[242,180,77],[47,191,132]],a=S[i],b=S[i+1];
+  return`rgb(${a.map((v,k)=>Math.round(v+(b[k]-v)*f)).join(",")})`;
+};
+
+/* ============ 2. QUESTION BANK: every question maps to a skill.
+   Format: [question, correct answer, distractor, distractor, distractor]. Options are shuffled when shown.
+   Distractors are built from common mistakes. 6 questions per skill; quizzes draw from them at random. ============ */
+const QB={
+ mult_div:[
+  ["3,406 × 47 = ?","160,082","159,082","37,466","160,182"],
+  ["25,872 ÷ 48 = ?","539","529","549","5,390"],
+  ["A school orders 36 boxes of 144 pencils. How many pencils is that?","5,184","5,084","4,896","1,440"],
+  ["9,375 ÷ 25 = ?","375","37.5","3,750","385"],
+  ["A theater has 28 rows of 36 seats. 850 tickets are sold. How many seats are empty?","158","168","148","1,008"],
+  ["What is the remainder when 1,000 is divided by 37?","1","3","10","27"]],
+ frac_basic:[
+  ["Which fraction is NOT equal to 2/3?","16/27","14/21","18/27","20/30"],
+  ["Write 84/126 in simplest form.","2/3","42/63","3/4","6/7"],
+  ["Which fraction is the greatest?","2/3","5/8","7/12","3/5"],
+  ["3/7 = ?/56","24","21","27","8"],
+  ["Which fraction is between 1/3 and 1/2?","5/12","3/10","7/12","1/4"],
+  ["Write 2 3/8 as an improper fraction.","19/8","23/8","16/8","6/8"]],
+ dec_ops:[
+  ["7.25 × 0.4 = ?","2.9","29","0.29","2.8"],
+  ["15.3 − 8.76 = ?","6.54","7.54","6.64","7.43"],
+  ["4.2 ÷ 0.06 = ?","70","7","0.7","700"],
+  ["0.35 × 2.4 = ?","0.84","8.4","0.084","0.74"],
+  ["Maya buys 3 notebooks at $2.85 each and a pen for $1.49. She pays with $20. How much change does she get?","$9.96","$10.04","$9.66","$10.96"],
+  ["18.9 ÷ 4.5 = ?","4.2","0.42","42","4.02"]],
+ exp_expr:[
+  ["18 − 2 × (3 + 1)² = ?","−14","256","2","10"],
+  ["2⁴ × 3² = ?","144","72","48","36"],
+  ["(12 + 8) ÷ 4 × 5 − 3² = ?","16","−8","34","4"],
+  ["5 + 3 × 2³ − 6 ÷ 2 = ?","26","29","11.5","61"],
+  ["4³ − 2⁵ = ?","32","2","16","−32"],
+  ["3 × [20 − (4 + 2)² ÷ 4] = ?","33","51","27","60"]],
+ int_ops:[
+  ["−12 − (−5) + 3 = ?","−4","−20","−10","4"],
+  ["(−3)³ = ?","−27","27","−9","9"],
+  ["−48 ÷ (−6) × (−2) = ?","−16","16","−4","4"],
+  ["It is −8°F at 6 a.m. By noon it rises 15°, then it falls 11° by midnight. What is the temperature at midnight?","−4°F","4°F","−12°F","−34°F"],
+  ["|−9| − |4 − 11| = ?","2","−16","16","−2"],
+  ["(−2)⁴ − (−2)³ = ?","24","8","−24","0"]],
+ frac_ops:[
+  ["3 1/2 − 1 5/6 = ?","1 2/3","2 2/3","1 1/3","2 1/3"],
+  ["2 2/3 × 1 1/2 = ?","4","2 1/3","3 1/3","2"],
+  ["4/5 ÷ 2/15 = ?","6","8/75","1/6","3"],
+  ["A recipe needs 3/4 cup of sugar per batch. How many batches can you make with 6 cups?","8","4 1/2","6 3/4","7"],
+  ["5/6 − 3/8 = ?","11/24","2/14","1/12","13/24"],
+  ["1 3/4 + 2 5/6 = ?","4 7/12","3 8/10","4 1/12","3 7/12"]],
+ ratio:[
+  ["Store A sells 12 oz for $3.60. Store B sells 20 oz for $5.40. Which is the better deal per ounce?","Store B, by 3¢ per ounce","Store A, by 3¢ per ounce","Store B, by 30¢ per ounce","They cost the same"],
+  ["The ratio of red to blue marbles is 3:5. There are 40 marbles. How many are red?","15","24","8","25"],
+  ["A printer prints 45 pages in 2.5 minutes. How many pages per minute is that?","18","112.5","22.5","20"],
+  ["Paint is mixed 2 parts blue to 7 parts white. How many liters of blue are in 36 liters of paint?","8","28","7","10"],
+  ["The ratio of boys to girls is 4:5. There are 45 girls. How many students are there in all?","81","36","101","72"],
+  ["A car uses 12 gallons to drive 348 miles. How many miles per gallon is that?","29","28","31","4,176"]],
+ eval_expr:[
+  ["If x = −3, what is 2x² − 5x + 1?","34","4","52","−2"],
+  ["If a = 4 and b = −2, what is (a − b)² ÷ 3?","12","4/3","20/3","4"],
+  ["Which expression is equal to 3(2x − 4) + 5x?","11x − 12","11x − 4","6x − 7","11x + 12"],
+  ["A phone plan costs $25 plus $0.10 per text. What is the cost for 340 texts?","$59","$34","$25.34","$340"],
+  ["If n = 5, what is 4n − (n + 7) ÷ 3?","16","8/3","4","13"],
+  ["Simplify 7y − 3(y − 2).","4y + 6","4y − 6","4y − 2","10y + 6"]],
+ stats:[
+  ["The mean of 5 test scores is 84. Four of the scores are 80, 90, 78, and 85. What is the fifth score?","87","84","83","90"],
+  ["What is the median of 12, 7, 19, 3, 15, 10?","11","10","12","19"],
+  ["What is the range of 14, −3, 8, 22, 0?","25","22","19","17"],
+  ["Data: 4, 6, 6, 7, 9, 10, 30. Which value best describes a typical number in this set?","The median, 7","The mean, about 10.3","The mode, 6","The range, 26"],
+  ["What is the mode of 3, 5, 5, 8, 8, 8, 9, 10?","8","5","7","10"],
+  ["The mean of 6 numbers is 15. If the number 30 is removed, what is the mean of the rest?","12","15","10","13"]],
+ area_perim:[
+  ["A rectangle has a perimeter of 46 cm and a length of 15 cm. What is its area?","120 cm²","690 cm²","240 cm²","61 cm²"],
+  ["A trapezoid has bases 8 m and 14 m and a height of 5 m. What is its area?","55 m²","110 m²","560 m²","27 m²"],
+  ["A 10 m × 8 m rectangle has a 4 m × 3 m corner cut out. What is the area of the shape left?","68 m²","80 m²","92 m²","36 m²"],
+  ["A square has an area of 81 m². What is its perimeter?","36 m","81 m","18 m","324 m"],
+  ["A triangle has an area of 42 cm² and a base of 12 cm. What is its height?","7 cm","3.5 cm","14 cm","504 cm"],
+  ["A parallelogram has a base of 9.5 cm and a height of 4 cm. What is its area?","38 cm²","27 cm²","19 cm²","13.5 cm²"]],
+ percent:[
+  ["An $80 shirt is 25% off, then 8% sales tax is added. What is the total?","$64.80","$66.40","$86.40","$65.00"],
+  ["18 is what percent of 72?","25%","400%","18%","54%"],
+  ["A price rises from $40 to $52. What is the percent increase?","30%","12%","23%","130%"],
+  ["35% of what number is 49?","140","17.15","84","71.4"],
+  ["After a 20% discount, a game costs $36. What was the original price?","$45","$43.20","$30","$56"],
+  ["In a class of 30, 40% walk to school, 1/3 ride the bus, and the rest are driven. How many are driven?","8","18","12","10"]],
+ prop:[
+  ["On a map, 2 cm = 15 km. Two towns are 9 cm apart on the map. How far apart are they really?","67.5 km","135 km","60 km","30 km"],
+  ["Solve: x/12 = 15/20","9","16","25","23"],
+  ["4.5 lb of apples cost $6.30. How much do 7 lb cost at the same rate?","$9.80","$10.50","$8.40","$8.80"],
+  ["y is proportional to x, and y = 14 when x = 4. What is y when x = 10?","35","20","28","40"],
+  ["Solve: (x + 2)/5 = 12/10","4","6","10","3.6"],
+  ["A recipe for 6 servings uses 2 1/4 cups of flour. How much flour is needed for 10 servings?","3 3/4 cups","4 1/4 cups","3 1/2 cups","6 1/4 cups"]],
+ rat_ops:[
+  ["−2/3 × 9/4 = ?","−3/2","3/2","−8/27","−11/7"],
+  ["−3.5 + 1.25 − (−0.75) = ?","−1.5","−3","1.5","−5.5"],
+  ["(−1/2)³ = ?","−1/8","1/8","−3/2","−1/6"],
+  ["−4.8 ÷ (−0.6) = ?","8","−8","0.8","80"],
+  ["−5/6 + 3/4 = ?","−1/12","1/12","−19/12","−1/5"],
+  ["A diver at −12.4 m rises 5.75 m, then goes down 3.2 m. Where is the diver now?","−9.85 m","−14.95 m","−6.65 m","−21.35 m"]],
+ one_step_eq:[
+  ["Solve: −7x = 56","−8","8","49","−49"],
+  ["Solve: x ÷ (−4) = 9","−36","36","−9/4","5"],
+  ["Solve: x − 3.8 = −6.1","−2.3","−9.9","2.3","9.9"],
+  ["Solve: (2/3)x = 18","27","12","36","54"],
+  ["After spending $14.75, Jamie has $32.60 left. How much did Jamie start with?","$47.35","$17.85","$46.35","$37.35"],
+  ["Solve: −15 = y + 22","−37","7","−7","37"]],
+ circle:[
+  ["A circle's circumference is 50.24 cm. What is its radius? (π ≈ 3.14)","8 cm","16 cm","4 cm","25.12 cm"],
+  ["What is the area of a circle with a diameter of 12 m? (π ≈ 3.14)","113.04 m²","37.68 m²","452.16 m²","75.36 m²"],
+  ["What is the area of a semicircle with a radius of 10 cm? (π ≈ 3.14)","157 cm²","314 cm²","31.4 cm²","78.5 cm²"],
+  ["A wheel has a radius of 14 in. How far does it roll in 10 full turns? (π ≈ 3.14)","879.2 in","439.6 in","6,154.4 in","87.92 in"],
+  ["A circle's area is 28.26 m². What is its radius? (π ≈ 3.14)","3 m","9 m","4.5 m","6 m"],
+  ["The largest possible circle is cut from a 10 cm × 10 cm square. How much area is left over? (π ≈ 3.14)","21.5 cm²","78.5 cm²","68.6 cm²","5.35 cm²"]],
+ two_step:[
+  ["Solve: 5x + 7 = −18","−5","5","−11/5","11/5"],
+  ["Solve: 4(2x − 3) = 3x + 13","5","3.2","−5","2"],
+  ["Solve: x/3 − 4 = 5","27","3","17","9"],
+  ["Solve: 3(x + 4) − 2x = 20","8","16","24","4"],
+  ["A gym charges $30 to sign up plus $15 per month. Sam has paid $165 in total. How many months has Sam been a member?","9","11","13","7"],
+  ["Solve: 0.5x − 2.5 = 1.5x + 4.5","−7","7","−3.5","3.5"]],
+ angles:[
+  ["A triangle's angles are x°, 2x°, and 3x°. What is the largest angle?","90°","30°","60°","120°"],
+  ["Two angles are complementary. One is 4 times the other. What is the smaller angle?","18°","36°","22.5°","72°"],
+  ["An isosceles triangle has a top (vertex) angle of 40°. What is each base angle?","70°","40°","140°","50°"],
+  ["Two vertical angles measure (2x + 10)° and (3x − 25)°. What is x?","35","39","7","15"],
+  ["A triangle's exterior angle is 115°. One of the two far (remote) interior angles is 48°. What is the other?","67°","65°","17°","163°"],
+  ["What is the supplement of the complement of 35°?","125°","145°","55°","35°"]],
+ prob:[
+  ["You roll two dice. What is the chance the sum is 7?","1/6","7/36","1/12","7/12"],
+  ["A bag has 4 red, 6 blue, and 2 green marbles. What is the chance of picking one that is NOT blue?","1/2","1/3","2/3","1/6"],
+  ["A spinner has 5 equal sections. You spin it twice. What is the chance it lands on the same section both times?","1/5","1/25","2/5","1/10"],
+  ["The chance of rain on any day is 0.35. About how many rainy days would you expect in 60 days?","21","35","25","39"],
+  ["You draw 2 cards without putting the first back, from 3 red and 2 black cards. What is the chance both are red?","3/10","9/25","3/5","1/2"],
+  ["You flip a coin 3 times. What is the chance of getting at least one head?","7/8","1/8","3/8","1/2"]],
+ slope:[
+  ["What is the slope of the line through (−2, 5) and (4, −7)?","−2","2","−1/2","−6"],
+  ["Which is the equation of a line with slope 3 that crosses the y-axis at −4?","y = 3x − 4","y = −4x + 3","y = 3x + 4","y = x − 4"],
+  ["Where does the line y = −(1/2)x + 6 cross the x-axis?","(12, 0)","(6, 0)","(0, 6)","(−12, 0)"],
+  ["A taxi costs $3 plus $2.50 per mile. What does the slope of this line mean?","$2.50 per mile","$3 per mile","$5.50 per mile","A $3 starting fee"],
+  ["Which line is the steepest?","y = −4x + 1","y = 3x − 2","y = (1/2)x + 5","y = 2x"],
+  ["A line passes through (1, 3) and (5, 11). What is its y-intercept?","1","3","2","−1"]],
+ pyth:[
+  ["A right triangle has legs of 9 and 12. How long is the hypotenuse?","15","21","13","225"],
+  ["A 13 ft ladder leans on a wall with its base 5 ft from the wall. How high up the wall does it reach?","12 ft","8 ft","18 ft","14 ft"],
+  ["Is a triangle with sides 7, 24, and 25 a right triangle?","Yes, because 7² + 24² = 25²","No, because 7 + 24 ≠ 25","Yes, because 7 + 24 > 25","No, because 25² > 24²"],
+  ["How far apart are the points (1, 2) and (7, 10)?","10","14","100","8"],
+  ["A rectangle is 8 cm by 15 cm. How long is its diagonal?","17 cm","23 cm","13 cm","289 cm"],
+  ["A right triangle has a hypotenuse of 10 and one leg of 6. What is its area?","24","30","48","60"]]
+};
+const GOALS=[
+ {id:"g6",name:"Get ready for 6th grade math",desc:"Fractions, decimals, ratios, expressions",skills:["mult_div","frac_basic","dec_ops","frac_ops","ratio","exp_expr","eval_expr","percent","stats","area_perim"]},
+ {id:"g7",name:"Master 7th grade math",desc:"Negatives, proportions, equations, geometry",skills:["int_ops","frac_ops","ratio","percent","prop","rat_ops","one_step_eq","area_perim","circle","angles","prob"]},
+ {id:"g8",name:"Get ready for 8th grade & algebra",desc:"Equations, slope, Pythagorean theorem",skills:["exp_expr","int_ops","prop","eval_expr","one_step_eq","two_step","slope","pyth","area_perim"]}
+];
+
+/* ============ 3. ASSESSMENT: builds the quiz, logs right/wrong per skill ============ */
+const Assessment={
+  TOPIC_LEN:4, // questions in a single-topic quiz
+  start(goal){ // one random question per skill, easiest skills first
+    const skills=[...goal.skills].sort((a,b)=>KG.S[a].depth-KG.S[b].depth);
+    return{mode:"goal",goal,queue:skills.map(s=>this.make(s)),i:0,log:[],used:{}};
+  },
+  startTopic(id){
+    const idx=this.shuffle([...QB[id].keys()]).slice(0,this.TOPIC_LEN);
+    return{mode:"topic",topic:id,queue:idx.map(k=>this.make(id,k)),i:0,log:[],used:{}};
+  },
+  shuffle:a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a},
+  make(skill,k,follow=false){
+    k??=Math.floor(Math.random()*QB[skill].length);
+    const[q,right,...wrong]=QB[skill][k];
+    return{skill,k,follow,q,opts:this.shuffle([{t:right,ok:true},...wrong.map(t=>({t,ok:false}))])};
+  },
+  current:r=>r.queue[r.i],
+  // idx = chosen option, or -1 for "haven't learned this yet". Returns true when finished.
+  answer(r,idx){
+    const q=r.queue[r.i],ok=idx>=0&&q.opts[idx].ok;
+    r.log.push({skill:q.skill,ok});
+    if(!ok&&r.mode==="goal"&&!q.follow){ // confirm a miss with a different question on the same skill
+      const others=[...QB[q.skill].keys()].filter(k=>k!==q.k);
+      r.queue.push(this.make(q.skill,others[Math.floor(Math.random()*others.length)],true));
+    }
+    return ++r.i>=r.queue.length;
+  }
+};
+
+/* ============ 4. MASTERY: estimate per skill from the answer log ============ */
+const Mastery={
+  T:{mastered:.6,developing:.4},
+  compute(log,goal){
+    const ev={},est={};
+    log.forEach(l=>(ev[l.skill]??=[]).push(l.ok));
+    for(const k in ev)est[k]={p:(ev[k].filter(Boolean).length+1)/(ev[k].length+2),tested:true}; // smoothed accuracy
+    // Knowing a skill implies its prerequisites are (probably) known
+    Object.keys(ev).forEach(k=>{if(est[k].p>=this.T.mastered)KG.ancestors(k).forEach(a=>{est[a]??={p:.65,inferred:true}})});
+    const readiness=goal.skills.reduce((s,k)=>s+(est[k]?.p??0),0)/goal.skills.length;
+    return{est,readiness};
+  },
+  status(e){return!e?"unknown":e.p>=this.T.mastered?"mastered":e.p>=this.T.developing?"developing":"gap"}
+};
+
+/* ============ 4b. STORE: remembers mastery across quizzes, per browser ============ */
+const Store={
+  K:"skillmap_mastery_v1",
+  load(){try{return JSON.parse(localStorage.getItem(this.K)||"{}")}catch(e){return{}}},
+  merge(est){const m={...this.load(),...est};try{localStorage.setItem(this.K,JSON.stringify(m))}catch(e){}return m}
+};
+
+/* ============ 5. PLANNER: gaps + missing prerequisites -> ordered learning path ============ */
+const Planner={
+  build(est,goal){
+    const st=id=>Mastery.status(est[id]);
+    const weak=Object.keys(est).filter(id=>["gap","developing"].includes(st(id)));
+    const need=new Set(weak);
+    weak.forEach(w=>KG.ancestors(w).forEach(a=>{if(st(a)!=="mastered")need.add(a)})); // missing prerequisites
+    return[...need].map(id=>({id,status:st(id),ready:KG.S[id].pre.every(p=>st(p)==="mastered"),
+        unlocks:KG.dependents(id).filter(d=>need.has(d)||goal.skills.includes(d))}))
+      .sort((a,b)=>KG.S[a.id].depth-KG.S[b.id].depth||b.unlocks.length-a.unlocks.length);
+  },
+  // Best next topics overall: not yet mastered, prerequisites in place, weak skills before unchecked ones,
+  // foundations before advanced, and skills that unlock more before those that unlock less.
+  recommend(est,n=3){
+    const st=id=>Mastery.status(est[id]);
+    return Object.keys(KG.S).filter(id=>st(id)!=="mastered").map(id=>{
+      const s=KG.S[id],missing=s.pre.filter(p=>st(p)!=="mastered"),status=st(id),ready=!missing.length;
+      const reason=!ready?`Start here to build toward ${KG.dependents(id).map(nm).slice(0,2).join(" and ")||"the next unit"}.`
+        :status==="developing"?"You're close on this one. A little practice will lock it in."
+        :status==="gap"?"This tripped you up before, and you now have the building blocks for it."
+        :s.pre.length?`You know ${s.pre.map(nm).join(" and ")}, so you're ready for this.`:"A strong place to start.";
+      return{id,ready,status,reason,key:[ready?0:1,["gap","developing"].includes(status)?0:1,s.depth,-KG.dependents(id).length]};
+    }).sort((a,b)=>{for(let i=0;i<a.key.length;i++)if(a.key[i]!==b.key[i])return a.key[i]-b.key[i];return 0}).slice(0,n);
+  }
+};
+
+/* ============ 6. UI ============ */
+const LBL={mastered:"Got it!",developing:"Almost there",gap:"Needs practice",unknown:"Not checked yet"};
+const COL={mastered:"var(--gr)",developing:"var(--am)",gap:"var(--co)",unknown:"var(--un)"};
+const nm=id=>KG.S[id].name,$=id=>document.getElementById(id);
+const UI={
+  st:{screen:"home",sel:null},
+  go(s){this.st.screen=s;this.render();window.scrollTo(0,0)},
+  render(){$("app").innerHTML=`<div class="brand"><span class="logo"></span>SkillMap${this.st.screen!=="home"?`<button class="link" style="margin-left:auto" onclick="UI.go('home')">My skill map</button>`:""}</div>`+this[this.st.screen]()},
+  pick(id){this.st.goal=GOALS.find(g=>g.id===id);this.st.run=Assessment.start(this.st.goal);this.st.sel=null;this.go("quiz")},
+  startTopic(id){this.st.run=Assessment.startTopic(id);this.st.sel=null;this.go("quiz")},
+  choose(i){this.st.sel=i;this.render()},
+  next(skip){
+    const r=this.st.run;
+    if(Assessment.answer(r,skip?-1:this.st.sel)){
+      if(r.mode==="topic"){
+        const{est}=Mastery.compute(r.log,{skills:[r.topic]});
+        const merged=Store.merge(est);
+        this.st.topicRes={id:r.topic,status:Mastery.status(merged[r.topic])};
+        this.go("topicResult");
+      }else{
+        this.go("analyzing");
+        setTimeout(()=>{const m=Mastery.compute(r.log,this.st.goal);Store.merge(m.est);
+          this.st.res={...m,path:Planner.build(m.est,this.st.goal)};this.go("results")},1400);
+      }
+    }else{this.st.sel=null;this.render()}
+  },
+  home(){
+    const est=Store.load(),all=Object.keys(KG.S).sort((a,b)=>KG.S[a].depth-KG.S[b].depth);
+    const tested=all.filter(id=>est[id]),mastered=all.filter(id=>Mastery.status(est[id])==="mastered");
+    const pct=Math.round(mastered.length/all.length*100);
+    return`<section class="hero" style="padding:14px 0 4px"><h1 style="font-size:clamp(26px,5vw,38px)">Your skill map</h1>
+    <p class="mu">${tested.length?`${tested.length} of ${all.length} skills checked so far.`:"Answer a few quick questions and this map fills in. Pick a goal, or jump into any topic below."}</p></section>
+    <div class="rep" style="margin-bottom:8px"><div class="ring" style="background:conic-gradient(var(--gr) ${pct}%,var(--tr) 0)"><div>${pct}%</div></div>
+    <div><p style="margin:0 0 10px"><b>${pct}% of all skills mastered</b></p><button class="btn" onclick="UI.go('goals')">Take a readiness check</button></div></div>
+    <h2>Knowledge tree</h2><p class="mu">Big units on the left, specific concepts on the right. Each score is the average of the ones to its right. Tap a concept to practice it.</p>
+    ${this.map(est)}
+    <h2>Topics to review or learn</h2>
+    ${(()=>{const rec=Planner.recommend(est);return rec.length?`<div class="unit rec-row"><h3>Recommended for you</h3>
+      <p class="mu" style="margin:2px 0 0;font-size:14px">${Object.keys(est).length?"Picked from your results so far.":"Take a check to personalize these. Until then, here are good first steps."}</p>
+      <div class="grid" style="margin-top:10px">${rec.map(r=>this.topicCard(r.id,est,r.reason)).join("")}</div></div>`
+      :`<div class="unit rec-row"><h3>Recommended for you</h3><p class="mu">You've mastered every topic. Pick any one below to review.</p></div>`})()}
+    ${Tree.ROOT.children.map(u=>{const us=Tree.score(u,est);
+      return`<div class="unit"><div class="row"><h3>${u.name}</h3><span class="pill" style="background:${grad(us.p)};${us.p==null?"":"color:#10283A"}">${us.p==null?"Not checked yet":Math.round(us.p*100)+"%"}</span></div>
+      <div class="grid" style="margin-top:10px">${Tree.leaves(u).map(id=>this.topicCard(id,est)).join("")}</div></div>`}).join("")}`;
+  },
+  topicCard(id,est,reason){ // one topic card; with a reason it renders as a recommendation
+    const s=Mastery.status(est[id]),p=est[id]?.p;
+    const missing=KG.S[id].pre.filter(q=>Mastery.status(est[q])!=="mastered").map(nm);
+    return`<div class="card${reason?" rec":""}"><div class="row"><h3>${nm(id)}</h3><span class="pill ${s}">${LBL[s]}</span></div>
+      <div class="bar" style="margin-bottom:8px"><i style="width:${Math.round((p||0)*100)}%;background:${grad(p)}"></i></div>
+      ${reason?`<p style="font-size:14px;margin:0 0 6px">${reason}</p><p class="mu" style="font-size:13px;margin:0 0 10px">About ${KG.S[id].min} min</p>`
+        :missing.length&&s!=="mastered"?`<p class="mu" style="font-size:13px;margin:0 0 8px">Builds on: ${missing.join(", ")}</p>`:""}
+      <button class="btn ${s==="mastered"?"alt":""}" style="width:100%" onclick="UI.startTopic('${id}')">${s==="mastered"?"Review":reason?"Start":"Learn"}</button></div>`;
+  },
+  topicResult(){
+    const{id,status}=this.st.topicRes,est=Store.load();
+    const need=[...KG.ancestors(id)].filter(p=>Mastery.status(est[p])!=="mastered").sort((a,b)=>KG.S[a].depth-KG.S[b].depth);
+    const msg=status==="mastered"?"Nice work — you've got this one down.":status==="developing"?"You're close. A bit more practice will lock it in.":"This one needs more practice before it clicks.";
+    return`<h1 style="font-size:30px">${nm(id)}</h1><span class="pill ${status}">${LBL[status]}</span>
+    <p style="margin-top:14px"><b>${msg}</b></p>
+    <h2>Concepts you need to understand</h2>
+    ${need.length?`<div class="grid">${need.map(p=>`<div class="card"><div class="row"><h3>${nm(p)}</h3><span class="pill ${Mastery.status(est[p])}">${LBL[Mastery.status(est[p])]}</span></div><p class="mu" style="margin:0">${KG.S[p].learn}</p></div>`).join("")}</div>`
+      :`<p class="mu">${status==="mastered"?"You already have every building block for this topic.":"No missing building blocks — this one just needs direct practice."}</p>`}
+    <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+    <button class="btn" onclick="UI.startTopic('${id}')">Try again</button>
+    <button class="btn alt" onclick="UI.go('home')">Back to skill map</button></div>`;
+  },
+  goals:()=>`<h2 style="margin-top:0">What's your goal?</h2><p class="mu">Pick one. The check takes about 5–10 minutes. No grades, no pressure.</p>
+    <div class="grid">${GOALS.map(g=>`<button class="goal" onclick="UI.pick('${g.id}')"><b>${g.name}</b><small>${g.desc}</small></button>`).join("")}</div>`,
+  quiz(){
+    const r=this.st.run,q=Assessment.current(r),pct=Math.round(r.i/r.queue.length*100);
+    return`<div class="bar bar-top"><i style="width:${pct}%"></i></div><p class="mu">${r.mode==="topic"?"Topic check":"Readiness check"} · Question ${r.i+1} of ${r.queue.length}</p>
+    <span class="tag">${nm(q.skill)}</span>${q.follow?` <span class="mu">Here's another one on this skill</span>`:""}
+    <div class="q">${q.q}</div>
+    ${q.opts.map((o,i)=>`<button class="opt ${this.st.sel===i?"on":""}" onclick="UI.choose(${i})">${o.t}</button>`).join("")}
+    <div style="display:flex;gap:12px;align-items:center;margin-top:14px"><button class="btn" ${this.st.sel===null?"disabled":""} onclick="UI.next()">Next</button>
+    <button class="link" onclick="UI.next(true)">I haven't learned this yet</button></div>`;
+  },
+  analyzing:()=>`<div class="spin"></div><h2 style="text-align:center">Looking at your answers…</h2><p class="mu" style="text-align:center">Building your skill map</p>`,
+  results(){
+    const{est,readiness,path}=this.st.res,g=this.st.goal,pct=Math.round(readiness*100);
+    const st=id=>Mastery.status(est[id]);
+    const mastered=Object.keys(est).filter(id=>st(id)==="mastered").sort((a,b)=>KG.S[a].depth-KG.S[b].depth);
+    const gaps=Object.keys(est).filter(id=>st(id)!=="mastered"&&est[id].tested);
+    const msg=pct>=80?"You're ready! Just a little polishing left.":pct>=50?"Solid base. A few skills to tighten up.":"Great start. Now we know exactly where to begin.";
+    return`<div class="rep"><div class="ring" style="background:conic-gradient(var(--gr) ${pct}%,var(--tr) 0)"><div>${pct}%</div></div>
+      <div><h1 style="font-size:30px">Your readiness report</h1><p class="mu">Goal: ${g.name}</p><p><b>${msg}</b></p></div></div>
+    <h2>What you already know</h2>${mastered.length?mastered.map(id=>`<span class="chip">✓ ${nm(id)}</span>`).join(""):`<p class="mu">Nothing yet, and that's okay. Your path below starts at the beginning.</p>`}
+    <h2>Where to grow</h2>${gaps.length?`<div class="grid">${gaps.map(id=>`<div class="card"><div class="row"><h3>${nm(id)}</h3><span class="pill ${st(id)}">${LBL[st(id)]}</span></div>
+      <div class="bar"><i style="width:${Math.round(est[id].p*100)}%;background:${COL[st(id)]}"></i></div></div>`).join("")}</div>`:`<p class="mu">No gaps found. Try the next grade's goal!</p>`}
+    <h2>Your learning path</h2>${path.length?path.map((p,i)=>{const s=KG.S[p.id];
+      return`<div class="step ${p.ready?"now":""}"><div class="num">${i+1}</div><div class="card" style="flex:1"><div class="row"><h3>${s.name}</h3>
+      <span class="pill ${p.ready?"mastered":"unknown"}">${p.ready?"Ready":"Do after "+s.pre.filter(x=>st(x)!=="mastered").map(nm).join(", ")}</span></div>
+      <p>${s.learn}</p><p class="mu" style="font-size:14px">About ${s.min} min${p.status==="unknown"?" · Building block we didn't check":""}${p.unlocks.length?" · Unlocks: "+p.unlocks.map(nm).join(", "):""}</p>
+      ${p.ready?`<button class="btn" onclick="UI.startTopic('${p.id}')">Start here</button>`:""}</div></div>`}).join(""):`<p class="mu">You're all set. Nothing you need to fix first.</p>`}
+    <h2>Your knowledge tree</h2><p class="mu">Big units on the left, specific concepts on the right. Tap a concept to practice it.</p>
+    ${this.map(Store.load())}
+    <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap"><button class="btn" onclick="UI.pick('${g.id}')">Retake check</button><button class="btn alt" onclick="UI.go('goals')">Pick another goal</button></div>`;
+  },
+  map(est){ // Horizontal tree: whole subject on the left, units, topics, then individual concepts on the right.
+    const Wd=[124,226,236,220],X=[8,168,430,702],RH=32,NH=26,GAP=14;
+    let y=30,nodes=[],edges=[];
+    const place=(n,d)=>{ // returns center y
+      const leaf=typeof n==="string",sc=Tree.score(n,est);let cy;
+      if(leaf){cy=y+NH/2;y+=RH}
+      else{
+        const ys=n.children.map((c,i)=>{if(d===0&&i>0)y+=GAP;return place(c,d+1)});
+        cy=(ys[0]+ys[ys.length-1])/2;
+        ys.forEach(cyk=>{const x1=X[d]+Wd[d],x2=X[d+1],mx=(x1+x2)/2;
+          edges.push(`<path d="M${x1} ${cy}C${mx} ${cy},${mx} ${cyk},${x2} ${cyk}" fill="none" stroke="var(--tr)" stroke-width="2"/>`)});
+      }
+      const name=leaf?nm(n):n.name,pct=sc.p==null?"–":Math.round(sc.p*100)+"%",fill=grad(sc.p),h=d===0?40:NH;
+      const tip=`${name}: ${sc.p==null?"not checked yet":pct}${leaf?"":` (${sc.checked} of ${sc.total} concepts checked)`}`;
+      const act=leaf?` class="leaf" role="button" tabindex="0" onclick="UI.startTopic('${n}')" onkeydown="if(event.key==='Enter')UI.startTopic('${n}')"`:"";
+      nodes.push(`<g${act}><title>${tip}${leaf?" · click to practice":""}</title>
+        <rect x="${X[d]}" y="${cy-h/2}" width="${Wd[d]}" height="${h}" rx="${h/2}" fill="${fill}" ${sc.p==null?'opacity=".45"':""}/>
+        <text x="${X[d]+12}" y="${cy+4}" class="${d<2?"b":""}" ${sc.p==null?"":'style="fill:#10283A"'}>${name}</text>
+        <text x="${X[d]+Wd[d]-10}" y="${cy+4}" text-anchor="end" class="b" ${sc.p==null?"":'style="fill:#10283A"'}>${pct}</text></g>`);
+      return cy;
+    };
+    place(Tree.ROOT,0);
+    const w=X[3]+Wd[3]+8,h=y+4;
+    return`<div class="map"><svg viewBox="0 0 ${w} ${h}" width="${w}" role="img" aria-label="Knowledge tree">
+      ${["Subject","Units","Topics","Concepts"].map((t,i)=>`<text x="${X[i]+4}" y="14" class="colh">${t}</text>`).join("")}${edges.join("")}${nodes.join("")}</svg></div>
+    <div class="leg"><span>Needs practice</span><span class="gbar"></span><span>Got it</span><span><i style="background:var(--un);opacity:.45"></i>Not checked yet</span></div>`;
+  }
+};
+UI.render();
+</script></body></html>
