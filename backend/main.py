@@ -5,7 +5,7 @@ app = FastAPI()
 
 def home():
     return {"message" : " Math Gap Analyzeer API is running"}
-
+# CRUD operations
 @app.get("/skills")
 def get_skills():
     return [
@@ -13,3 +13,5 @@ def get_skills():
         {"id":2, "name": "Fractions"},
          {"id":3, "name": "Rations & Proportions"},
     ]
+
+    # Database schema 
